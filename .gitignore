@@ -1,0 +1,10 @@
+.terraform/
+*.tfstate*
+local.auto.tfvars
+.env
+
+# Editor-specific files
+.DS_Store
+.idea
+.code
+.vscode
