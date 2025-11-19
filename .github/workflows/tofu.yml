@@ -20,8 +20,8 @@ env:
   TF_VAR_fastly_api_key: ${{ secrets.fastly_api_key }}
   TF_VAR_porkbun_api_key: ${{ secrets.porkbun_api_key }}
   TF_VAR_porkbun_secret_key: ${{ secrets.porkbun_secret_key }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+  TF_VAR_aws_access_key_id: ${{ secrets.aws_access_key_id }}
+  TF_VAR_aws_secret_access_key: ${{ secrets.aws_secret_access_key }}
 
 jobs:
   validate:
@@ -32,6 +32,8 @@ jobs:
       - uses: opentofu/setup-opentofu@v1
         with:
           tofu_version_file: .opentofu-version
+      - name: Tofu Init (Staging)
+        run: tofu init -var-file="env-staging.tfvars" -input=false
       - name: Tofu Validate
         run: tofu validate -no-color
       - name: Tofu Format Check
