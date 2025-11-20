@@ -37,7 +37,7 @@ jobs:
       - name: Tofu Validate
         run: tofu validate -no-color
       - name: Tofu Format Check
-        run: tofu fmt -check
+        run: tofu fmt -check -recursive
 
   plan:
     name: "Plan"
@@ -53,7 +53,6 @@ jobs:
         run: |
           { PLAN=$(tofu plan -var-file="env-staging.tfvars" -no-color | tee /dev/fd/5 || true); } 5>&1
           echo "<details><summary>OpenTofu Plan (Staging)</summary><code>$PLAN</code></details>" >> $GITHUB_STEP_SUMMARY
-        continue-on-error: true
       - name: Tofu Init (Prod)
         run: tofu init -var-file="env-prod.tfvars" -input=false
       - name: Tofu Plan (Prod)

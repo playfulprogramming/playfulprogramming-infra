@@ -8,7 +8,8 @@ provider "porkbun" {
 }
 
 module "playful-web" {
-  source = "./modules/playful-web"
-  domain = var.playful_web_domain
-  host   = var.playful_web_host
+  source  = "./modules/playful-web"
+  domain  = var.playful_web_domain
+  host    = var.playful_web_host
+  noindex = var.env != "prod"
 }
