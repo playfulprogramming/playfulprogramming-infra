@@ -52,13 +52,13 @@ jobs:
       - name: Tofu Plan (Staging)
         run: |
           { PLAN=$(tofu plan -var-file="env-staging.tfvars" -no-color | tee /dev/fd/5 || true); } 5>&1
-          echo "<details><summary>OpenTofu Plan (Staging)</summary><code>$PLAN</code></details>" >> $GITHUB_STEP_SUMMARY
+          echo "<details><summary>OpenTofu Plan (Staging)</summary><pre><code>$PLAN</code></pre></details>" >> $GITHUB_STEP_SUMMARY
       - name: Tofu Init (Prod)
         run: tofu init -var-file="env-prod.tfvars" -input=false -reconfigure
       - name: Tofu Plan (Prod)
         run: |
           { PLAN=$(tofu plan -var-file="env-prod.tfvars" -no-color | tee /dev/fd/5 || true); } 5>&1
-          echo "<details><summary>OpenTofu Plan (Prod)</summary><code>$PLAN</code></details>" >> $GITHUB_STEP_SUMMARY
+          echo "<details><summary>OpenTofu Plan (Prod)</summary><pre><code>$PLAN</code></pre></details>" >> $GITHUB_STEP_SUMMARY
 
   deploy-staging:
     name: "Deploy (Staging)"
