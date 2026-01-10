@@ -30,6 +30,7 @@ resource "fastly_service_vcl" "cdn" {
     port              = 443
     prefer_ipv6       = true
     ssl_cert_hostname = var.host
+    ssl_sni_hostname  = var.host
     use_ssl           = true
   }
 
