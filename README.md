@@ -48,6 +48,8 @@ flowchart TD
 
     Orama["Orama Search Index"]
 
+	Plausible["Plausible Analytics"]
+
     WebDeploy -.-> Orama
     WebDeploy -.-> WebMachine
     WebDeploy --> HoofMachine
@@ -57,6 +59,7 @@ flowchart TD
     WebUser --> CDN
     WebUser --> Tigris
     WebUser --> ImageOptimization --> WebMachine
+	WebUser --> Plausible
 
     CDN --> WebMachine
 

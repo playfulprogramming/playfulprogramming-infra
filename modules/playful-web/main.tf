@@ -17,7 +17,7 @@ resource "fastly_service_vcl" "cdn" {
   activate = true
   comment  = "Managed by Tofu"
   http3    = true
-  name     = "Playful Programming's website"
+  name     = "PFP Website for ${var.domain}"
   stage    = false
 
   domain {
@@ -25,11 +25,12 @@ resource "fastly_service_vcl" "cdn" {
   }
 
   backend {
-    address     = var.host
-    name        = "Host 1"
-    port        = 443
-    prefer_ipv6 = true
-    use_ssl     = true
+    address           = var.host
+    name              = "Host 1"
+    port              = 443
+    prefer_ipv6       = true
+    ssl_cert_hostname = var.host
+    use_ssl           = true
   }
 
   gzip {
@@ -111,6 +112,7 @@ resource "fastly_service_vcl" "cdn" {
 }
 
 resource "fastly_tls_subscription" "main" {
+  depends_on            = [fastly_service_vcl.cdn]
   domains               = [var.domain, "*.${var.domain}"]
   certificate_authority = "certainly"
 }
@@ -156,5 +158,4 @@ resource "porkbun_dns_record" "apex" {
   type      = "A"
   content   = each.value
   ttl       = 600
-  prio      = 10
 }
