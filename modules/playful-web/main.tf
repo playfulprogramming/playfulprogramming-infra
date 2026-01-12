@@ -167,5 +167,5 @@ resource "porkbun_url_forward" "redirect" {
   include_path = true
   location     = var.domain
   type         = "permanent"
-  wildcard     = true
+  wildcard     = false
 }
