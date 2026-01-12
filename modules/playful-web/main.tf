@@ -178,7 +178,7 @@ resource "porkbun_url_forward" "redirect" {
   domain       = var.domain
   subdomain    = "www"
   include_path = true
-  location     = var.domain
+  location     = "https://${var.domain}"
   type         = "permanent"
   wildcard     = false
 }
