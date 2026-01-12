@@ -173,3 +173,12 @@ resource "porkbun_dns_record" "apex" {
   content   = each.value
   ttl       = 600
 }
+
+resource "porkbun_url_forward" "redirect" {
+  domain       = var.domain
+  subdomain    = "www"
+  include_path = true
+  location     = var.domain
+  type         = "permanent"
+  wildcard     = false
+}
