@@ -77,8 +77,21 @@ resource "fastly_service_vcl" "cdn" {
       ignore_if_set = false
       name          = "Pass header to enable discoverability in prod"
       priority      = 100
-      source        = "true"
+      source        = "\"true\""
       type          = "request"
+    }
+  }
+
+  dynamic "header" {
+    for_each = var.noindex ? [] : [1]
+    content {
+      action        = "set"
+      destination   = "http.Playful-Enable-Discoverability"
+      ignore_if_set = false
+      name          = "Pass header to enable discoverability in prod"
+      priority      = 100
+      source        = "\"true\""
+      type          = "cache"
     }
   }
 
